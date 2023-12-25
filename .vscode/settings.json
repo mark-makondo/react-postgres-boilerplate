@@ -1,0 +1,53 @@
+{
+    "files.autoSave": "afterDelay",
+    "editor.formatOnPaste": false,
+    "editor.formatOnSave": true,
+    "files.autoSaveDelay": 20000,
+    "editor.suggestSelection": "first",
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+    "files.exclude": {
+        "**/.classpath": true,
+        "**/.project": true,
+        "**/.settings": true,
+        "**/.factorypath": true
+    },
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    "diffEditor.ignoreTrimWhitespace": false,
+    "eslint.alwaysShowStatus": true,
+    "eslint.workingDirectories": [],
+    "editor.inlineSuggest.enabled": true,
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+    "[typescript]": {
+        "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
+    "[javascriptreact]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[python]": {
+        "editor.formatOnType": true
+    },
+    "[html]": {
+        "editor.defaultFormatter": "vscode.html-language-features"
+    },
+    "[json]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "[scss]": {
+        "editor.defaultFormatter": "vscode.css-language-features"
+    },
+    "eslint.format.enable": true,
+    "javascript.format.semicolons": "insert",
+    "typescript.format.semicolons": "insert",
+    "typescript.tsserver.enableTracing": true,
+    "editor.formatOnType": true,
+    "[jsonc]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "workbench.editor.enablePreview": false,
+    "editor.minimap.enabled": false,
+    "editor.indentSize": "tabSize"
+}
