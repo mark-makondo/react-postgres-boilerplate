@@ -1,7 +1,7 @@
 import React from "react";
 
-const EmailVerification = () => {
+function EmailVerification() {
     return <div>EmailVerification</div>;
-};
+}
 
 export default EmailVerification;

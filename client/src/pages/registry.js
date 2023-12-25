@@ -1,30 +1,30 @@
-import React from "react";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
 import ResetPassword from "./ResetPassword";
 import EmailVerification from "./EmailVerification";
 import Dashboard from "./Dashboard";
+
 export const UNAUTHENTICATED_ROUTES = {
-    LOGIN: {
+    SIGNIN: {
         path: "/",
         default: true,
-        component: <SignIn />
+        component: SignIn
     },
     SIGNUP: {
         path: "/signup",
-        component: <SignUp />
+        component: SignUp
     },
     RESET_PASSWORD: {
         path: "/reset-password",
-        component: <ResetPassword />
+        component: ResetPassword
     },
     CONFIRM_RESET_PASSWORD: {
         path: "/resetPassword/:token",
-        component: <ResetPassword isConfirm />
+        component: ResetPassword
     },
     EMAIL_VERIFICATION: {
         path: "/verification/:token",
-        component: <EmailVerification />
+        component: EmailVerification
     }
 };
 export const AUTHENTICATED_ROUTES = {
@@ -32,7 +32,7 @@ export const AUTHENTICATED_ROUTES = {
         path: "/dashboard",
         default: true,
         label: "Dashboard",
-        component: <Dashboard />,
+        component: Dashboard,
         image: ""
     }
 };
