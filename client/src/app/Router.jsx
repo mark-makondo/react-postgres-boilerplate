@@ -1,10 +1,9 @@
 import React from "react";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
-import NotFound from "./pages/NotFound";
-import UnauthLayout from "./components/layout/UnauthLayout";
-import AuthLayout from "./components/layout/AuthLayout";
-import Navigation from "./classes/Navigation";
-import "./stylesheets/index.scss";
+import NotFound from "../pages/NotFound";
+import UnauthLayout from "../common/components/layout/UnauthLayout";
+import AuthLayout from "../common/components/layout/AuthLayout";
+import Navigation from "../common/classes/Navigation";
 
 function Router() {
     return (

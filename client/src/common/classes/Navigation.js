@@ -1,4 +1,4 @@
-import { AUTHENTICATED_ROUTES, UNAUTHENTICATED_ROUTES } from "../pages/registry";
+import { AUTHENTICATED_ROUTES, UNAUTHENTICATED_ROUTES } from "../../pages/registry";
 
 class Navigation {
     #authenticatedRoutes = [];

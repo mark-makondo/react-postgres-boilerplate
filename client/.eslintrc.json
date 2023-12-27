@@ -39,6 +39,7 @@
             {
                 "code": 150
             }
-        ]
+        ],
+        "no-param-reassign": "off"
     }
 }

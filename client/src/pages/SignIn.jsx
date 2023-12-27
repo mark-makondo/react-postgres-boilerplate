@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Counter from "../features/counter/Counter";
 
 function SignIn() {
     const [form, setForm] = useState({
@@ -31,6 +32,7 @@ function SignIn() {
                 <button type="submit">Sign In</button>
             </form>
             {/* {error && <div className="error">{error}</div>} */}
+            <Counter />
         </div>
     );
 }
