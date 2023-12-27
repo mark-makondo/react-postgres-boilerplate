@@ -20,25 +20,25 @@ app.post("/signup", async (req, res) => {
         const hashedPassword = bcrypt.hashSync(password, salt);
         await DBManager.query("INSERT INTO users (email, hashed_password) VALUES ($1, $2)", [email, hashedPassword]);
         const token = jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: "1h" });
-        res.json({ token });
+        res.json({ token, email });
     } catch (error) {
         if (error) res.json({ detail: error.detail });
         else res.json({ detail: "An error occurred while signing up" });
     }
 });
 
-app.get("/signin", async (req, res) => {
+app.post("/signin", async (req, res) => {
     try {
         const { email, password } = req.body;
         const users = await DBManager.query("SELECT * FROM users WHERE email = $1", [email]);
         if (users.rows.length === 0) throw new Error({ detail: "User not found" });
         const user = users.rows[0];
         const validPassword = await bcrypt.compare(password, user.hashed_password);
-        if (!validPassword) throw new Error({ detail: "Invalid password" });
+        if (!validPassword) throw new Error("Invalid password");
         const token = jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: "1h" });
-        res.json({ token });
+        res.json({ token, email });
     } catch (error) {
-        if (error) res.json({ detail: error.detail });
+        if (error) res.json({ detail: error.message });
         else res.json({ detail: "An error occurred while signing up" });
     }
 });
