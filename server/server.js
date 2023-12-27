@@ -18,7 +18,7 @@ app.post("/signup", async (req, res) => {
         const { email, password } = req.body;
         const salt = bcrypt.genSaltSync(10);
         const hashedPassword = bcrypt.hashSync(password, salt);
-        await DBManager.query("INSERT INTO users (email, password) VALUES ($1, $2)", [email, hashedPassword]);
+        await DBManager.query("INSERT INTO users (email, hashed_password) VALUES ($1, $2)", [email, hashedPassword]);
         const token = jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: "1h" });
         res.json({ token });
     } catch (error) {
@@ -33,7 +33,7 @@ app.get("/signin", async (req, res) => {
         const users = await DBManager.query("SELECT * FROM users WHERE email = $1", [email]);
         if (users.rows.length === 0) throw new Error({ detail: "User not found" });
         const user = users.rows[0];
-        const validPassword = await bcrypt.compare(password, user.password);
+        const validPassword = await bcrypt.compare(password, user.hashed_password);
         if (!validPassword) throw new Error({ detail: "Invalid password" });
         const token = jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: "1h" });
         res.json({ token });
