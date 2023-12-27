@@ -14,12 +14,8 @@ class DBManager {
         });
     }
 
-    async query(query, params) {
-        try {
-            return await this.pool.query(query, params);
-        } catch (err) {
-            console.log(err);
-        }
+    query(query, params) {
+        return this.pool.query(query, params);
     }
 }
 
