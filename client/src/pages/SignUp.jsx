@@ -26,7 +26,6 @@ function SignUp() {
         else {
             setCookie("email", data.email);
             setCookie("token", data.token);
-            window.location.reload();
         }
     };
     const handleFormChange = (e) => {

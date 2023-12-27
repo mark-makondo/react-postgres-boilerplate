@@ -7,7 +7,6 @@ function Dashboard() {
     const handleLogout = () => {
         removeCookie("email");
         removeCookie("token");
-        window.location.reload();
     };
 
     return (
