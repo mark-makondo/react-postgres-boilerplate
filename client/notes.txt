@@ -1,0 +1,10 @@
+useful redux rtk references: 
+
+//yt
+https://www.youtube.com/watch?v=Icd-_K7KFrs
+//gh
+https://gist.github.com/datchley/4e0d05c526d532d1b05bf9b48b174faf
+//docs
+https://redux.js.org/introduction/why-rtk-is-redux-today
+https://redux.js.org/tutorials/quick-start
+https://redux.js.org/style-guide/
