@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useCookies } from "react-cookie";
 import Counter from "../features/counter/Counter";
+import { useSigninUserMutation } from "../services/authAPI";
 
 function SignIn() {
     const [cookies, setCookie] = useCookies(null); // eslint-disable-line no-unused-vars
@@ -9,20 +10,27 @@ function SignIn() {
         password: ""
     });
     const [error, setError] = useState("");
+    const [signinUser, { data, isLoading, isSuccess }] = useSigninUserMutation();
+
+    React.useEffect(() => {
+        if (data) {
+            if (data.detail) setError(data.detail);
+            else {
+                setCookie("email", data.email);
+                setCookie("token", data.token);
+            }
+        }
+    }, [isSuccess]);
+
     const handleFormSubmit = async (e) => {
         e.preventDefault();
-        const email = e.target.email.value;
-        const password = e.target.password.value;
-        const res = await fetch(`${process.env.REACT_APP_SERVER}/signin`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email, password })
-        });
-        const data = await res.json();
-        if (data.detail) setError(data.detail);
-        else {
-            setCookie("email", data.email);
-            setCookie("token", data.token);
+        try {
+            const email = e.target.email.value;
+            const password = e.target.password.value;
+            if (!email || !password) throw new Error("Email and password cannot be empty!");
+            await signinUser({ email, password });
+        } catch (err) {
+            setError(err.message);
         }
     };
     const handleFormChange = (e) => {
@@ -32,17 +40,25 @@ function SignIn() {
     return (
         <div className="sign-in">
             <form onSubmit={handleFormSubmit}>
-                <input name="email" type="email" value={form.email} placeholder="email" onChange={handleFormChange} required />
+                <input
+                    name="email"
+                    type="email"
+                    value={form.email}
+                    placeholder="email"
+                    onChange={handleFormChange}
+                    autoComplete="username"
+                    required
+                />
                 <input
                     name="password"
                     type="password"
                     value={form.password}
                     placeholder="password"
                     onChange={handleFormChange}
-                    required
                     autoComplete="current-password"
+                    required
                 />
-                <button type="submit">Sign In</button>
+                {!isLoading ? <button type="submit">Sign In</button> : "Signing in..."}
             </form>
             {error && <div className="error">{error}</div>}
             <Counter />

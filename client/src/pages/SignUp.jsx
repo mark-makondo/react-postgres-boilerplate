@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useCookies } from "react-cookie";
+import { useSignupUserMutation } from "../services/authAPI";
 
 function SignUp() {
     const [cookies, setCookie] = useCookies(null); // eslint-disable-line no-unused-vars
@@ -9,23 +10,29 @@ function SignUp() {
         confirmPassword: ""
     });
     const [error, setError] = useState("");
+    const [signupUser, { data, isLoading, isSuccess }] = useSignupUserMutation();
+
+    React.useEffect(() => {
+        if (data) {
+            if (data.detail) setError(data.detail);
+            else {
+                setCookie("email", data.email);
+                setCookie("token", data.token);
+            }
+        }
+    }, [isSuccess]);
+
     const handleFormSubmit = async (e) => {
         e.preventDefault();
-        const email = e.target.email.value;
-        const password = e.target.password.value;
-        const confirmPassword = e.target.confirmPassword.value;
-        if (password !== confirmPassword) setError("Passwords do not match");
-        setForm({ email, password, confirmPassword });
-        const res = await fetch(`${process.env.REACT_APP_SERVER}/signup`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email, password })
-        });
-        const data = await res.json();
-        if (res.detail) setError(data.detail);
-        else {
-            setCookie("email", data.email);
-            setCookie("token", data.token);
+        try {
+            const email = e.target.email.value;
+            const password = e.target.password.value;
+            const confirmPassword = e.target.confirmPassword.value;
+            if (password !== confirmPassword) throw new Error("Passwords do not match!");
+            if (!email || !password) throw new Error("Email and password cannot be empty!");
+            await signupUser({ email, password });
+        } catch (err) {
+            setError(err.message);
         }
     };
     const handleFormChange = (e) => {
@@ -54,7 +61,7 @@ function SignUp() {
                     autoComplete="confirmPassword"
                     required
                 />
-                <button type="submit">Sign Up</button>
+                {!isLoading ? <button type="submit">Sign Up</button> : "Singing up..."}
             </form>
             {error && <div className="error">{error}</div>}
         </div>
